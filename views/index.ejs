@@ -4,9 +4,59 @@
 
 		<title>Messager</title>
 
+		<script src="/socket.io/socket.io.js"></script>
 	</head>
 	<body>
-		<h1>Hello world</h1>
+		<h1>Real Time chat App, yooo!</h1>
+
+		<input id="roomInput" autocomplete="off" placeholder="Room Name..." />
+		<button onclick="joinRoom()">Join RooM</button>
+
+		<ul id="messages"></ul>
+
+		<input id="msgInput" autocomplete="off" placeholder="Type your message..." />
+		<button onclick="sendMessage()">Send</button>
+
+		<script>
+			const socket = io();
+			let currentRoom = '';
+
+			function joinRoom() {
+				const roomInput = document.getElementById('roomInput');
+				const newRoom = roomInput.value.trim();
+
+				if (newRoom && newRoom !== currentRoom){
+					socket.emit('join-room', newRoom);
+				}
+			}
+
+			function sendMessage(){
+				const input = document.getElementById('msgInput');
+				const message = input.value.trim();
+
+				if (message && currentRoom){
+					socket.emit('client-message-send', {msg:message, room:currentRoom});
+					input.value = '';
+				}
+			}
+
+			socket.on('client-message-receive', function(msg){
+				const item = document.createElement('li');
+				item.textContent = msg;
+				document.getElementById('messages').appendChild(item);
+			});
+
+			socket.on('room-changed', (room) => {
+				currentRoom = room;
+				document.getElementById('messages').innerHTML = `<li><el>You joined room: ${room}</el></li>`;
+			});
+
+			socket.on('connect', () => {
+				console.log('Connected: ', socket.id);
+			});
+
+		</script>
+
 	</body>
 
 </html>
