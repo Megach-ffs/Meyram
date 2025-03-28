@@ -4,7 +4,11 @@
 
 ## Plan:
 [-] Chat room
+
 [] Authentication system
+
 [] Layered architecture
+
 [] CRUD posts
+
 [] Frontend
