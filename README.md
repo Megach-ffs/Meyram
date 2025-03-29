@@ -3,12 +3,12 @@
 - World
 
 ## Plan:
-[-] Chat room
+- Chat room ✔️ 
 
-[] Authentication system
+- Authentication system ✔️
 
-[] Layered architecture
+- Layered architecture
 
-[] CRUD posts
+- CRUD posts
 
-[] Frontend
+- Frontend
