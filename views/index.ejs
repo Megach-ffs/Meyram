@@ -7,8 +7,11 @@
 		<script src="/socket.io/socket.io.js"></script>
 	</head>
 	<body>
-		<h1>Real Time chat App, yooo!</h1>
+		<h1>Real Time Chat App</h1>
+		<p> Welcome, <%=user.username %>!</p>
+		<a href="/logout">Logout</a><br/>
 
+		<h2 id="roomTitle"></h2><br/>
 		<input id="roomInput" autocomplete="off" placeholder="Room Name..." />
 		<button onclick="joinRoom()">Join RooM</button>
 
@@ -21,6 +24,7 @@
 			const socket = io();
 			let currentRoom = '';
 
+			socket.emit("register-user", {username: "<%=user.username %>"});
 			function joinRoom() {
 				const roomInput = document.getElementById('roomInput');
 				const newRoom = roomInput.value.trim();
@@ -28,6 +32,7 @@
 				if (newRoom && newRoom !== currentRoom){
 					socket.emit('join-room', newRoom);
 				}
+				document.getElementById("roomTitle").textContent = `Current chat: ${room}`;
 			}
 
 			function sendMessage(){
