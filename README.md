@@ -7,7 +7,7 @@
 
 - Authentication system ✔️
 
-- Layered architecture
+- Layered architecture ✔️
 
 - CRUD posts
 
