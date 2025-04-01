@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Profile</title>
+</head>
+<body>
+	
+	<h1>Welcome, <%= user.user.username %></h1>
+
+	<% if (errors.length > 0) { %>
+		<ul style="color: red;">
+			<% errors.forEach(err => { %>
+				<li><%= err.msg %></li>
+			<% }) %>
+		</ul>
+	<% } %>
+
+	<form method="POST" action="/profile">
+		<label>First Name</label><br/>
+		<input type="text" name="name" value="<%= user.user.name %>" /><br/>
+
+		<label>Surname</label><br/>
+		<input type="text" name="surname" value="<%= user.user.surname %>" /><br/>
+
+		<label>Email</label><br/>
+		<input type="email" name="email" value="<%= user.user.email %>" required /><br/>
+
+		<label>Description</label><br/>
+		<textarea name="description" rows="4"><%= user.user.desc %></textarea><br/>
+
+		<label>Change Password</label><br/>
+		<input type="password" name="password" placeholder="Leave blank to keep current" /><br/>
+
+		<button type="submit">Update Profile</button>
+	</form>
+
+	<p><a href="/">Back to chat</a> | <a href="/logout">Logout</a></p>
+</body>
+</html>

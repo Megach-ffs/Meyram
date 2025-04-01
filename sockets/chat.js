@@ -2,22 +2,20 @@ const userService = require('../services/user');
 
 
 function chatIO(io) {
-io.on('connection', (socket) => {
-	console.log(`Socket connected: ${socket.id}`);
-	// Notification
-	socket.on("register-user", ({username}) =>{
-		let users = userService.readUsers();
-		const user = users.find((u) => u.username === username);
+	io.on('connection', (socket) => {
+		console.log(`Socket connected: ${socket.id}`);
 
-		if (user) {
-			socket.username = user.username;
-			io.emit('client-message-receive', `New user connected: ${socket.username}`);
-		}
-		else{
-			console.log("whatehell");
-		}
-	});
+		socket.on("register-user", ({ username }) => {
+			const users = userService.getAll();
+			const userObj = users.find((u) => u.user.username === username);
 
+			if (userObj) {
+				socket.username = userObj.user.username;
+				io.emit('client-message-receive', `New user connected: ${socket.username}`);
+			} else {
+				console.log("⚠️ User not found in register-user");
+			}
+		});
 	//io.emit('client-message-receive', `New User connected: ${socket.username}`)
 
 	socket.on('join-room', (newRoom) => {

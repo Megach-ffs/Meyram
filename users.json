@@ -1,10 +1,24 @@
 [
   {
-    "username": "admin",
-    "password": "$2b$10$9e1BNZYisP/PxsyZ9uPWnOHcG0asChdggueOH/PyzwkUAlCU.LavW"
+    "id": "17LSZ0",
+    "user": {
+      "username": "admin",
+      "name": "adminminda",
+      "surname": "admin",
+      "email": "admin@admin.com",
+      "desc": "123",
+      "password": "$2b$10$7LIfYZvSZpDbRn.S9hMbUu5j/B76awx3TtmO6i0h3kn0V67l8ddJ."
+    }
   },
   {
-    "username": "megach",
-    "password": "$2b$10$A8qbay3jIxnFCrMfDW10.e6rdy73h4NPvU/2tAiUd4CqR1BXXSzdW"
+    "id": "RYFN2U",
+    "user": {
+      "username": "megach",
+      "name": "",
+      "surname": "",
+      "email": "megach@megach.com",
+      "desc": "",
+      "password": "$2b$10$9exFYXDV1rTdsK8vcc94rOl0lhymizENuQq.qTbHoywss0mxqAbvC"
+    }
   }
 ]

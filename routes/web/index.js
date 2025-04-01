@@ -1,35 +1,65 @@
 const express = require("express");
 const router = express.Router();
-
-const authChecker = require('../../middleware/auth');
+const { authMiddleware, checkNotAuthenticated } = require('../../middleware/auth');
+const userValidator = require('../../validators/user');
+const { validationResult } = require('express-validator');
 const userController = require('../../controllers/user');
 
-router.get('/register', authChecker.checkNotAuthenticated, (req, res) => {
+// Register
+router.get('/register', checkNotAuthenticated, (req, res) => {
 	res.render('register');
 });
 
-router.post('/register', userController.createUser);
+router.post('/register', userValidator.register, (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.render('register', {
+			errors: errors.array(),
+			old: req.body
+		});
+	}
+	userController.createUser(req, res);
+});
 
-router.get('/login', authChecker.checkNotAuthenticated, (req, res) => {
+// Login
+router.get('/login', checkNotAuthenticated, (req, res) => {
 	res.render('login');
 });
 
+router.post('/login', userValidator.login || [], (req, res) => {
+	userController.login(req, res);
+});
 
-router.post('/login', userController.login);
-
+// Logout
 router.get('/logout', (req, res) => {
 	res.clearCookie('token');
-	res.redirect('login');
+	res.redirect('/login');
 });
 
-router.get("/401", (req, res)=>{
-	res.status(401).render("401");
+// Profile 
+router.get('/profile', authMiddleware, userController.getProfile);
+
+router.post('/profile', authMiddleware, userValidator.update, (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		const user = require('../../services/user').getById(req.user.id);
+		return res.render('user', {
+			errors: errors.array(),
+			user
+		});
+	}
+	userController.updateProfile(req, res);
 });
 
+router.get('/401', (req, res) => {
+	res.status(401).render('401');
+});
 
-
-router.get('/', authChecker.authMiddleware , (req, res) =>{
-	res.render('index', {user:req.user});
+// Chat homepage
+router.get('/', authMiddleware, (req, res) => {
+	const user = require('../../services/user').getById(req.user.id);
+	res.render('index', { user });
 });
 
 module.exports = router;
+

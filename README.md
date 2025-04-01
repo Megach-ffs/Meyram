@@ -9,6 +9,10 @@
 
 - Layered architecture ✔️
 
-- CRUD posts
+- CRUD users
+
+- CRUD rooms
+
+- CRUD posts (maybe)
 
 - Frontend

@@ -1,67 +1,71 @@
+
 <!DOCTYPE html>
 <html>
-	<head>
+<head>
+	<title>Messenger</title>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<h1>Real-Time Chat App</h1>
 
-		<title>Messager</title>
+	<p>Welcome, <strong><%= user.user.username %></strong>!</p>
 
-		<script src="/socket.io/socket.io.js"></script>
-	</head>
-	<body>
-		<h1>Real Time Chat App</h1>
-		<p> Welcome, <%=user.username %>!</p>
-		<a href="/logout">Logout</a><br/>
+	<a href="/profile">Your Profile</a> |
+	<a href="/logout">Logout</a>
 
-		<h2 id="roomTitle"></h2><br/>
-		<input id="roomInput" autocomplete="off" placeholder="Room Name..." />
-		<button onclick="joinRoom()">Join RooM</button>
+	<hr/>
 
-		<ul id="messages"></ul>
+	<h2 id="roomTitle">No room joined</h2>
 
-		<input id="msgInput" autocomplete="off" placeholder="Type your message..." />
-		<button onclick="sendMessage()">Send</button>
+	<input id="roomInput" autocomplete="off" placeholder="Room Name..." />
+	<button onclick="joinRoom()">Join Room</button>
 
-		<script>
-			const socket = io();
-			let currentRoom = '';
+	<ul id="messages"></ul>
 
-			socket.emit("register-user", {username: "<%=user.username %>"});
-			function joinRoom() {
-				const roomInput = document.getElementById('roomInput');
-				const newRoom = roomInput.value.trim();
+	<input id="msgInput" autocomplete="off" placeholder="Type your message..." />
+	<button onclick="sendMessage()">Send</button>
 
-				if (newRoom && newRoom !== currentRoom){
-					socket.emit('join-room', newRoom);
-				}
-				document.getElementById("roomTitle").textContent = `Current chat: ${room}`;
+	<script>
+		const socket = io();
+		let currentRoom = '';
+
+		socket.emit("register-user", { username: "<%= user.user.username %>" });
+
+		function joinRoom() {
+			const roomInput = document.getElementById('roomInput');
+			const newRoom = roomInput.value.trim();
+
+			if (newRoom && newRoom !== currentRoom) {
+				socket.emit('join-room', newRoom);
+				document.getElementById("roomTitle").textContent = `Current chat: ${newRoom}`;
 			}
+		}
 
-			function sendMessage(){
-				const input = document.getElementById('msgInput');
-				const message = input.value.trim();
+		function sendMessage() {
+			const input = document.getElementById('msgInput');
+			const message = input.value.trim();
 
-				if (message && currentRoom){
-					socket.emit('client-message-send', {msg:message, room:currentRoom});
-					input.value = '';
-				}
+			if (message && currentRoom) {
+				socket.emit('client-message-send', { msg: message, room: currentRoom });
+				input.value = '';
 			}
+		}
 
-			socket.on('client-message-receive', function(msg){
-				const item = document.createElement('li');
-				item.textContent = msg;
-				document.getElementById('messages').appendChild(item);
-			});
+		socket.on('client-message-receive', function(msg) {
+			const item = document.createElement('li');
+			item.textContent = msg;
+			document.getElementById('messages').appendChild(item);
+		});
 
-			socket.on('room-changed', (room) => {
-				currentRoom = room;
-				document.getElementById('messages').innerHTML = `<li><el>You joined room: ${room}</el></li>`;
-			});
+		socket.on('room-changed', (room) => {
+			currentRoom = room;
+			document.getElementById('messages').innerHTML = `<li><em>You joined room: ${room}</em></li>`;
+		});
 
-			socket.on('connect', () => {
-				console.log('Connected: ', socket.id);
-			});
-
-		</script>
-
-	</body>
-
+		socket.on('connect', () => {
+			console.log('Connected: ', socket.id);
+		});
+	</script>
+</body>
 </html>
+
