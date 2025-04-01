@@ -9,7 +9,7 @@
 
 - Layered architecture ✔️
 
-- CRUD users
+- CRUD users w/ validation ✔️
 
 - CRUD rooms
 
