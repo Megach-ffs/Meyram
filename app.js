@@ -29,9 +29,10 @@ const USERS_FILE = path.join(__dirname, "users.json");
 chatio(io);
 
 
-const PORT = process.env.PORT || 8000
+const PORT = 4444
 http.listen(PORT, ()=>{
 	console.log("Hello world");
+	console.log("Running on http://localhost:4444");
 });
 
 
