@@ -20,5 +20,16 @@
       "desc": "",
       "password": "$2b$10$9exFYXDV1rTdsK8vcc94rOl0lhymizENuQq.qTbHoywss0mxqAbvC"
     }
+  },
+  {
+    "id": "4GHU4Y",
+    "user": {
+      "username": "Joke",
+      "name": "Joke",
+      "surname": "Jokings",
+      "email": "jakepal@gmail.com",
+      "desc": "",
+      "password": "$2b$10$AYFqnyGowKaaCAFQt4Opa.PEVDhrCq9swqbFclVet1g6SsqPmBRhC"
+    }
   }
 ]
