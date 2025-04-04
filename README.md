@@ -28,7 +28,6 @@ Meyram is a real-time web-based chat application built using Node.js, Express, S
 3. Create a `.env` file in the root directory with the following content:
    ```
    JWT_SECRET=your_secret_key_here
-   PORT=8000
    ```
 
 4. Run the application:
