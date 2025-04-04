@@ -2,7 +2,7 @@
 
 ## About the App
 
-Meyram is a real-time web-based chat application built using Node.js, Express, Socket.IO, and EJS. It allows users to register, log in, update their profiles, and communicate in room-based chats. The application includes features such as user authentication using JSON Web Tokens (JWT), password hashing with bcrypt, and form validation using express-validator. The system is structured following a layered MVC-style architecture to separate concerns and maintain modularity.
+Real-time web-based chat application built using Node.js, Express, Socket.IO, and EJS. It allows users to register, log in, update their profiles, and communicate in room-based chats. The application includes features such as user authentication using JSON Web Tokens (JWT), password hashing with bcrypt, and form validation using express-validator. The system is structured following a layered MVC-style architecture to separate concerns and maintain modularity.
 
 ---
 
