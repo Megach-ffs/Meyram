@@ -37,7 +37,7 @@ Real-time web-based chat application built using Node.js, Express, Socket.IO, an
 
 5. Open your browser and visit:
    ```
-   http://localhost:8000
+   http://localhost:4444
    ```
 
 ---
